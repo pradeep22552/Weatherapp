@@ -13,6 +13,7 @@ import androidx.room.PrimaryKey
 data class WeatherDetail(
 
         @PrimaryKey
+
         var id: Int? = 0,
         var temp: Float? = null,
         var icon: String? = null,

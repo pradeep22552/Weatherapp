@@ -16,4 +16,7 @@ interface WeatherDAO {
 
     @Delete
     fun deleteAll(weatherdelall:WeatherDetail)
+
+
+
 }

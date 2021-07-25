@@ -16,13 +16,13 @@ class WeatherRepository  @Inject constructor(
         private val weatherDao: WeatherDAO,
         private val weather: WeatherRemoteDataSource,
     ) {
-    suspend fun fetchweather(): Flow<Resultres<WeatherDetail>?> {
+    suspend fun fetchweather(lat:String,lon:String): Flow<Resultres<WeatherDetail>?> {
         return flow {
             if(fetchWeatherCached()!=null){
                 fetchWeatherCached()?.data?.let{
                     if (AppUtils.isTimeExpired(it.dateTime) ){
                         //emit(Resultres.loading())
-                        val result = weather.fetchweather()
+                        val result = weather.fetchweather(lat,lon)
                         val weatherdetail = WeatherDetail()
                         //Cache to database if response is successful
                         if (result.status == Resultres.Status.SUCCESS) {
@@ -45,7 +45,7 @@ class WeatherRepository  @Inject constructor(
             }
             else{
                 //emit(Resultres.loading())
-                val result = weather.fetchweather()
+                val result = weather.fetchweather(lat,lon)
                 val weatherdetail = WeatherDetail()
                 //Cache to database if response is successful
                 if (result.status == Resultres.Status.SUCCESS) {
